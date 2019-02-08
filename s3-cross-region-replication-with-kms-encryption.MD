@@ -9,14 +9,14 @@ This demonstration explains how to use the AWS CLI to change the bucket replicat
 #### Follow this article in [Youtube](https://www.youtube.com/watch?v=OHXDPDc1qEE&list=PLxzKY3wu0_FKok5gI1v4g4S-g-PLaW9YD&index=20)
 1. ## Source & Destination Bucket configurations
    ```sh
-   src_bkt="src-bkt-03"
+   src_bkt="src-bkt-101"
    src_bkt_region="us-east-1"
    src_profile="default"
    src_kms_arn="arn:aws:kms:us-east-1:589562693537:key/237d753b-858d-44b5-8f08-d33a7563af34"
    src_kms_region="us-east-1"
 
 
-   dest_bkt="dest-bkt-02"
+   dest_bkt="dest-bkt-101"
    dest_bkt_region="us-east-2"
    dest_profile="default"
    dest_kms_arn="arn:aws:kms:us-east-2:589562693537:key/91b7d8e5-e9ad-4d82-95ba-2bb0c43ed9cc"
