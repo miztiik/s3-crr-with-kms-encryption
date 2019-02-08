@@ -16,7 +16,7 @@ Although this demo is written for same account, by changing the `src_profile` an
       src_bkt="src-bkt-101"
       src_bkt_region="us-east-1"
       src_profile="default"
-      src_kms_arn="arn:aws:kms:us-east-1:589562693537:key/237d753b-858d-44b5-8f08-d33a7563af34"
+      src_kms_arn="arn:aws:kms:us-east-1:589562693537:key/7c711927-4cb0-4aa7-8e2e-81ec63602dd7"
       src_kms_region="us-east-1"
       ```
    - ### Destination Bucket Information
