@@ -6,25 +6,34 @@ This demonstration explains how to use the AWS CLI to change the bucket replicat
 
 ![Fig : S3 Cross Region Replication with Encrypted Objects](https://raw.githubusercontent.com/miztiik/s3-crr-with-kms-encryption/master/images/s3-crr-kms-encryption.png)
 
+Although this demo is written for same account, by changing the `src_profile` and `dest_profile` along with appropriate KMS `*_key_arn` you should be able implement the same across accounts
+
 #### Follow this article in [Youtube](https://www.youtube.com/watch?v=OHXDPDc1qEE&list=PLxzKY3wu0_FKok5gI1v4g4S-g-PLaW9YD&index=20)
 1. ## Source & Destination Bucket configurations
    Let us begin by setting up some global variables that we will be using through out this demo.
-   ```sh
-   src_bkt="src-bkt-101"
-   src_bkt_region="us-east-1"
-   src_profile="default"
-   src_kms_arn="arn:aws:kms:us-east-1:589562693537:key/237d753b-858d-44b5-8f08-d33a7563af34"
-   src_kms_region="us-east-1"
-
-
-   dest_bkt="dest-bkt-101"
-   dest_bkt_region="us-east-2"
-   dest_profile="default"
-   dest_kms_arn="arn:aws:kms:us-east-2:589562693537:key/91b7d8e5-e9ad-4d82-95ba-2bb0c43ed9cc"
-   dest_kms_region="us-east-2"
-
-   iam_role_name="s3-crr-with-kms-role"
-   ```
+   - ### Source Bucket Information
+      ```sh
+      src_bkt="src-bkt-101"
+      src_bkt_region="us-east-1"
+      src_profile="default"
+      src_kms_arn="arn:aws:kms:us-east-1:589562693537:key/  237d753b-858d-44b5-8f08-d33a7563af34"
+      src_kms_region="us-east-1"
+      ```
+   - ### Destination Bucket Information
+      ```sh
+      dest_bkt="dest-bkt-101"
+      dest_bkt_region="us-east-2"
+      dest_profile="default"
+      dest_kms_arn="arn:aws:kms:us-east-2:589562693537:key/ 91b7d8e5-e9ad-4d82-95ba-2bb0c43ed9cc"
+      dest_kms_region="us-east-2"
+      ```
+   - ### Generic Configs
+      ```sh
+      iam_role_name="s3-crr-with-kms-role"
+      trust_policy="./s3-crr-with-kms-role-trust-policy.json"
+      permissions_policy="./s3-crr-with-kms-role-permissions-policy.json"
+      bkt_replication_config="./s3-crr-config.json"
+      ```
 
 1. ## Create Source Bucket
    Lets create the source & destinations buckets in different regions & enable versioning
@@ -67,7 +76,7 @@ This demonstration explains how to use the AWS CLI to change the bucket replicat
    Before creating the role, we need a trust policy, Role Permissions.
    - ### Trust Policy
       ```sh
-      cat > "./s3-crr-with-kms-role-trust-policy.json" << "EOF"
+      cat > ${trust_policy} << "EOF"
       {
          "Version":"2012-10-17",
          "Statement":[
@@ -158,7 +167,7 @@ This demonstration explains how to use the AWS CLI to change the bucket replicat
             }
          ]
       }
-      ' | sudo tee "./s3-crr-with-kms-role-permissions-policy.json"
+      ' | sudo tee ${permissions_policy}
       ```
 
    - ### Create IAM Role
@@ -166,7 +175,7 @@ This demonstration explains how to use the AWS CLI to change the bucket replicat
       ```sh
       iam_role_arn=$(aws iam create-role \
                       --role-name ${iam_role_name} \
-                      --assume-role-policy-document file://s3-crr-with-kms-role-trust-policy.json \
+                      --assume-role-policy-document file://${trust_policy} \
                       --profile ${src_profile} \
                       --output text \
                       --query 'Role.Arn')
@@ -177,7 +186,7 @@ This demonstration explains how to use the AWS CLI to change the bucket replicat
       ```sh
       aws iam put-role-policy \
           --role-name ${iam_role_name} \
-          --policy-document file://s3-crr-with-kms-role-permissions-policy.json \
+          --policy-document file://${permissions_policy} \
           --policy-name "s3-crr-with-kms-role-permissions-policy" \
           --profile ${src_profile}
       ```
@@ -205,13 +214,13 @@ This demonstration explains how to use the AWS CLI to change the bucket replicat
          }
       ]
    }
-   ' | sudo tee "./s3-crr-config.json"
+   ' | sudo tee ${bkt_replication_config}
    ```
 
    - ## Apply Replication configuration to Source Bucket.
       ```sh
       aws s3api put-bucket-replication \
-         --replication-configuration file://s3-crr-config.json \
+         --replication-configuration file://${bkt_replication_config} \
          --bucket ${src_bkt} \
          --profile ${src_profile}
       ```
