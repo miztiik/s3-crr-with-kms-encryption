@@ -8,6 +8,7 @@ This demonstration explains how to use the AWS CLI to change the bucket replicat
 
 #### Follow this article in [Youtube](https://www.youtube.com/watch?v=OHXDPDc1qEE&list=PLxzKY3wu0_FKok5gI1v4g4S-g-PLaW9YD&index=20)
 1. ## Source & Destination Bucket configurations
+   Let us begin by setting up some global variables that we will be using through out this demo.
    ```sh
    src_bkt="src-bkt-101"
    src_bkt_region="us-east-1"
@@ -63,7 +64,7 @@ This demonstration explains how to use the AWS CLI to change the bucket replicat
       ```
 
 1. ## Creating IAM Trust, Permissions Policy & Role
-   Before creating the role, we need a trust policy and KMS policy. Lets create them first.
+   Before creating the role, we need a trust policy, Role Permissions.
    - ### Trust Policy
       ```sh
       cat > "./s3-crr-with-kms-role-trust-policy.json" << "EOF"
@@ -161,6 +162,7 @@ This demonstration explains how to use the AWS CLI to change the bucket replicat
       ```
 
    - ### Create IAM Role
+      We are going to create the role with the correct trust permissions and store the IAM Role ARN for future use.
       ```sh
       iam_role_arn=$(aws iam create-role \
                       --role-name ${iam_role_name} \
@@ -171,6 +173,7 @@ This demonstration explains how to use the AWS CLI to change the bucket replicat
       ```
 
    - ### Attach IAM Permissions to Role
+      Attach the previously created permissions to the newly created role
       ```sh
       aws iam put-role-policy \
           --role-name ${iam_role_name} \
