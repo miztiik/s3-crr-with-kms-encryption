@@ -16,7 +16,7 @@ Although this demo is written for same account, by changing the `src_profile` an
       src_bkt="src-bkt-101"
       src_bkt_region="us-east-1"
       src_profile="default"
-      src_kms_arn="arn:aws:kms:us-east-1:589562693537:key/  237d753b-858d-44b5-8f08-d33a7563af34"
+      src_kms_arn="arn:aws:kms:us-east-1:589562693537:key/237d753b-858d-44b5-8f08-d33a7563af34"
       src_kms_region="us-east-1"
       ```
    - ### Destination Bucket Information
@@ -24,7 +24,7 @@ Although this demo is written for same account, by changing the `src_profile` an
       dest_bkt="dest-bkt-101"
       dest_bkt_region="us-east-2"
       dest_profile="default"
-      dest_kms_arn="arn:aws:kms:us-east-2:589562693537:key/ 91b7d8e5-e9ad-4d82-95ba-2bb0c43ed9cc"
+      dest_kms_arn="arn:aws:kms:us-east-2:589562693537:key/91b7d8e5-e9ad-4d82-95ba-2bb0c43ed9cc"
       dest_kms_region="us-east-2"
       ```
    - ### Generic Configs
@@ -155,7 +155,7 @@ Although this demo is written for same account, by changing the `src_profile` an
                "Effect":"Allow",
                "Condition":{
                   "StringLike":{
-                     "kms:ViaService":"s3.'${dest_kms_region}  '.amazonaws.com",
+                     "kms:ViaService":"s3.'${dest_kms_region}'.amazonaws.com",
                      "kms:EncryptionContext:aws:s3:arn":[
                         "arn:aws:s3:::'${dest_bkt}'/*"
                      ]
