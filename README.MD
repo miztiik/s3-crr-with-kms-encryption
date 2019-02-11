@@ -8,7 +8,7 @@ This demonstration explains how to use the AWS CLI to change the bucket replicat
 
 Although this demo is written for same account, by changing the `src_profile` and `dest_profile` along with appropriate KMS `*_key_arn` you should be able implement the same across accounts
 
-#### Follow this article in [Youtube](https://www.youtube.com/watch?v=OHXDPDc1qEE&list=PLxzKY3wu0_FKok5gI1v4g4S-g-PLaW9YD&index=20)
+#### Follow this article in [Youtube](https://youtu.be/d8bvvGEJU68)
 1. ## Source & Destination Bucket configurations
    Let us begin by setting up some global variables that we will be using through out this demo.
    - ### Source Bucket Information
@@ -93,6 +93,7 @@ Although this demo is written for same account, by changing the `src_profile` an
       ```
 
    - ### IAM Permissions Policy
+      
       ```sh
       echo '{
          "Version":"2012-10-17",
