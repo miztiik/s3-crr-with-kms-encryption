@@ -16,7 +16,7 @@ Although this demo is written for same account, by changing the `src_profile` an
       src_bkt="src-bkt-101"
       src_bkt_region="us-east-1"
       src_profile="default"
-      src_kms_arn="arn:aws:kms:us-east-1:589562693537:key/7c711927-4cb0-4aa7-8e2e-81ec63602dd7"
+      src_kms_arn="arn:aws:kms:us-east-1:589512693537:key/7c711927-4cb0-4aa7-8e2e-81ec63602dd7"
       src_kms_region="us-east-1"
       ```
    - ### Destination Bucket Information
@@ -24,7 +24,7 @@ Although this demo is written for same account, by changing the `src_profile` an
       dest_bkt="dest-bkt-101"
       dest_bkt_region="us-east-2"
       dest_profile="default"
-      dest_kms_arn="arn:aws:kms:us-east-2:589562693537:key/91b7d8e5-e9ad-4d82-95ba-2bb0c43ed9cc"
+      dest_kms_arn="arn:aws:kms:us-east-2:589512693537:key/91b7d8e5-e9ad-4d82-95ba-2bb0c43ed9cc"
       dest_kms_region="us-east-2"
       ```
    - ### Generic Configs
